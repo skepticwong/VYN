@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VYN | Vibes You Need</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FFFFFF; --bg-muted: #FAFAF7; --text: #111111; --text-muted: #6B655D;
+      --bronze: #8A755D; --border: #E8E5E0;
+      --space: 1rem; --space-lg: 1.5rem; --space-xl: 2.5rem; --space-2xl: 4rem;
+      --radius: 2px;
+      --serif: 'Playfair Display', serif; --sans: 'Inter', system-ui, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    h1,h2,h3,.logo { font-family: var(--serif); font-weight: 400; }
+    h1 { font-size: clamp(2.5rem, 5vw + 1rem, 4.5rem); line-height: 1.05; letter-spacing: -0.02em; }
+    h2 { font-size: clamp(1.8rem, 3vw + 0.5rem, 2.8rem); margin-bottom: var(--space-xl); }
+    h3 { font-size: 1.25rem; line-height: 1.25; margin-bottom: 0.5rem; }
+    p,a,button,input,select { font-family: var(--sans); }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; background: none; border: none; font: inherit; }
+    .meta { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: var(--space-xs); }
+    .rule { width: 40px; height: 1px; background: var(--bronze); margin: var(--space) 0; }
+
+    /* NAV */
+    nav { position: sticky; top: 0; z-index: 50; display: flex; justify-content: space-between; align-items: center; padding: var(--space) max(4vw, 2rem); background: rgba(255,255,255,0.95); backdrop-filter: blur(6px); border-bottom: 1px solid var(--border); }
+    .logo { font-size: 1.5rem; font-weight: 600; letter-spacing: 0.02em; }
+    .logo span { color: var(--bronze); }
+    .nav-links { display: flex; gap: var(--space-lg); align-items: center; }
+    .nav-links a { font-size: 0.85rem; padding: 4px 0; position: relative; }
+    .nav-links a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background: var(--bronze); transition: width 200ms ease; }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+    .nav-controls { display: flex; gap: var(--space); align-items: center; }
+    .lang-toggle { font-size: 0.75rem; color: var(--text-muted); cursor: pointer; border: 1px solid var(--border); padding: 2px 6px; border-radius: var(--radius); }
+    .menu-toggle { display: none; font-size: 1.3rem; background: none; border: none; }
+    @media (max-width: 768px) {
+      .menu-toggle { display: block; }
+      .nav-links { position: absolute; top: 100%; left: 0; right: 0; background: var(--bg); flex-direction: column; padding: var(--space-lg); gap: var(--space); border-bottom: 1px solid var(--border); transform: translateY(-100%); transition: transform 250ms ease; }
+      .nav-links.open { transform: translateY(0); }
+      .nav-controls { flex-direction: column; gap: var(--space-sm); }
+    }
+
+    /* VIEWS */
+    .view { display: none; padding: var(--space-2xl) max(4vw, 2rem); max-width: 1200px; margin: 0 auto; animation: fadeIn 300ms ease both; }
+    .view.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* HERO */
+    .hero { text-align: center; padding: var(--space-2xl) 0; }
+    .hero .sub { font-size: 0.9rem; color: var(--text-muted); max-width: 550px; margin: var(--space) auto 0; line-height: 1.5; }
+    .issue { font-size: 0.7rem; color: var(--text-muted); margin-top: var(--space); letter-spacing: 0.15em; }
+
+    /* MAGAZINE FEED */
+    .feed-grid { display: grid; grid-template-columns: 1fr 320px; gap: var(--space-xl); }
+    .featured img { width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: var(--radius); }
+    .post { border-bottom: 1px solid var(--border); padding-bottom: var(--space); margin-bottom: var(--space); }
+    .post img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: var(--radius); margin-bottom: var(--space-sm); }
+    @media (max-width: 900px) { .feed-grid { grid-template-columns: 1fr; } }
+
+    /* INTERACTIONS */
+    .actions { display: flex; gap: var(--space-lg); margin-top: var(--space-sm); padding-top: var(--space-sm); border-top: 1px solid var(--border); }
+    .act-btn { display: flex; align-items: center; gap: 6px; font-size: 0.85rem; color: var(--text-muted); transition: color 200ms; }
+    .act-btn:hover { color: var(--text); }
+    .act-btn.liked { color: #C54040; }
+    .comment-box { margin-top: var(--space); padding-top: var(--space-sm); border-top: 1px solid var(--border); }
+    .c-input-row { display: flex; gap: var(--space-sm); }
+    .c-input { flex: 1; padding: 0.5rem; border: 1px solid var(--border); border-radius: var(--radius); font-size: 0.9rem; }
+    .c-list { margin-top: var(--space); display: grid; gap: 0.4rem; }
+    .c-item { font-size: 0.85rem; color: var(--text-muted); }
+    .c-item strong { color: var(--text); font-weight: 500; margin-right: 4px; }
+
+    /* EVENTS & SHOP */
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-lg); }
+    .card { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: transform 200ms ease; background: var(--bg-muted); }
+    .card:hover { transform: translateY(-2px); }
+    .card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; }
+    .card-body { padding: var(--space); }
+    .price { font-family: var(--serif); font-size: 1.1rem; color: var(--bronze); margin: 4px 0; }
+    .btn { display: inline-block; padding: 0.6rem 1.2rem; border: 1px solid var(--text); color: var(--text); font-size: 0.85rem; transition: all 200ms; }
+    .btn:hover { background: var(--text); color: var(--bg); }
+    .btn-sm { padding: 0.4rem 0.8rem; font-size: 0.75rem; }
+
+    /* AUTH MODAL */
+    .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.3); backdrop-filter: blur(2px); display: none; place-items: center; z-index: 100; }
+    .modal.active { display: grid; }
+    .modal-box { background: var(--bg); padding: var(--space-xl); border: 1px solid var(--border); border-radius: var(--radius); width: 100%; max-width: 360px; }
+    .form-group { margin-bottom: var(--space); }
+    .form-group label { display: block; font-size: 0.8rem; margin-bottom: 4px; color: var(--text-muted); }
+    .form-group input, .form-group select { width: 100%; padding: 0.5rem; border: 1px solid var(--border); border-radius: var(--radius); }
+    .role-select { display: flex; gap: var(--space); margin-bottom: var(--space); }
+
+    /* ADMIN DASHBOARD */
+    .admin-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--space-xl); border-bottom: 1px solid var(--border); padding-bottom: var(--space); }
+    .tabs { display: flex; gap: var(--space); margin-bottom: var(--space-lg); }
+    .tab { padding: 4px 0; color: var(--text-muted); border-bottom: 1px solid transparent; cursor: pointer; }
+    .tab.active { color: var(--text); border-color: var(--bronze); }
+    .panel { display: none; }
+    .panel.active { display: block; }
+    .pub-form { max-width: 500px; display: grid; gap: var(--space); }
+    .post-list { margin-top: var(--space-lg); display: grid; gap: var(--space); }
+    .p-item { display: flex; justify-content: space-between; align-items: center; padding: var(--space); border: 1px solid var(--border); border-radius: var(--radius); }
+
+    /* FOOTER */
+    footer { text-align: center; padding: var(--space-2xl) 0; border-top: 1px solid var(--border); margin-top: var(--space-2xl); color: var(--text-muted); font-size: 0.8rem; }
+    .demo-badge { position: fixed; bottom: 1rem; right: 1rem; background: var(--bg); border: 1px solid var(--border); padding: 4px 8px; font-size: 0.7rem; color: var(--text-muted); border-radius: var(--radius); }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#" class="logo" onclick="nav('journal')">VYN<span>.</span></a>
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+    <div class="nav-links" id="nav">
+      <a href="#" onclick="nav('journal')" class="active" data-v="journal">Journal</a>
+      <a href="#" onclick="nav('events')" data-v="events">Events</a>
+      <a href="#" onclick="nav('shop')" data-v="shop">Shop</a>
+      <a href="#" onclick="nav('admin')" data-v="admin" id="deskLink" style="display:none;">Editor Desk</a>
+    </div>
+    <div class="nav-controls">
+      <button class="lang-toggle" onclick="toggleLang()">EN / NY</button>
+      <button class="btn btn-sm" onclick="openModal()" id="authBtn">Login</button>
+    </div>
+  </nav>
+
+  <!-- JOURNAL / HOME -->
+  <div id="journal" class="view active">
+    <header class="hero">
+      <h1>Vibes You Need</h1>
+      <div class="rule" style="margin: var(--space) auto;"></div>
+      <p class="sub" data-i18n="sub">An editorial space for art, sound, fashion, and lifestyle. Curated by VYN. Engaged by the movement.</p>
+      <p class="issue" data-i18n="issue">ISSUE 01 — EST. 2026</p>
+    </header>
+    <h2 data-i18n="latest">The Latest</h2>
+    <div class="feed-grid">
+      <div id="feat"></div>
+      <aside id="side"></aside>
+    </div>
+    <div id="feed" style="margin-top: var(--space-xl);"></div>
+  </div>
+
+  <!-- EVENTS -->
+  <div id="events" class="view">
+    <h2 data-i18n="events">Gatherings</h2>
+    <div class="grid-3">
+      <div class="card"><div class="card-body"><div class="meta" data-i18n="ev1-date">JUL 12 • LILONGWE</div><h3 data-i18n="ev1-title">Sound & Canvas Live</h3><p class="meta" style="margin-top:4px;" data-i18n="ev1-price">Free / VIP MWK 5,000</p><button class="btn btn-sm" style="margin-top:var(--space);" onclick="alert('Ticket checkout demo')">Secure Pass</button></div></div>
+      <div class="card"><div class="card-body"><div class="meta" data-i18n="ev2-date">AUG 03 • BLANTYRE</div><h3 data-i18n="ev2-title">Afro-Modern Showcase</h3><p class="meta" style="margin-top:4px;" data-i18n="ev2-price">MWK 3,500</p><button class="btn btn-sm" style="margin-top:var(--space);" onclick="alert('Ticket checkout demo')">Secure Pass</button></div></div>
+    </div>
+  </div>
+
+  <!-- SHOP -->
+  <div id="shop" class="view">
+    <h2 data-i18n="shop">Objects & Tickets</h2>
+    <div class="grid-3">
+      <div class="card"><img src="https://placehold.co/400x400/FAFAF7/111?text=TEE" alt="Tee"><div class="card-body"><div class="meta" data-i18n="merch1-cat">APPAREL</div><h3 data-i18n="merch1-title">Heritage Tee</h3><div class="price">MWK 8,500</div><button class="btn btn-sm" onclick="alert('Cart demo')">Add</button></div></div>
+      <div class="card"><img src="https://placehold.co/400x400/FAFAF7/111?text=VINYL" alt="Vinyl"><div class="card-body"><div class="meta" data-i18n="merch2-cat">MUSIC</div><h3 data-i18n="merch2-title">Roots & Resonance</h3><div class="price">MWK 12,000</div><button class="btn btn-sm" onclick="alert('Checkout demo')">Pre-Order</button></div></div>
+    </div>
+  </div>
+
+  <!-- ADMIN -->
+  <div id="admin" class="view">
+    <div class="admin-header">
+      <h2 data-i18n="admin">Editorial Desk</h2>
+      <button class="btn btn-sm" onclick="nav('journal')">Exit</button>
+    </div>
+    <div class="tabs">
+      <button class="tab active" onclick="switchPanel('pub')">Publish</button>
+      <button class="tab" onclick="switchPanel('arch')">Archive</button>
+    </div>
+    <div id="pub" class="panel active">
+      <form class="pub-form" onsubmit="publish(event)">
+        <div class="form-group"><label data-i18n="f-title">Title</label><input type="text" id="pT" required></div>
+        <div class="form-group"><label data-i18n="f-cat">Category</label><select id="pC"><option>Art</option><option>Music</option><option>Fashion</option><option>Lifestyle</option></select></div>
+        <div class="form-group"><label data-i18n="f-img">Image URL</label><input type="url" id="pI" placeholder="https://..."></div>
+        <div class="form-group"><label data-i18n="f-copy">Copy</label><input type="text" id="pK" placeholder="Short editorial caption..."></div>
+        <button type="submit" class="btn" data-i18n="f-btn">Publish to Journal</button>
+      </form>
+    </div>
+    <div id="arch" class="panel">
+      <div class="post-list" id="aList"></div>
+    </div>
+  </div>
+
+  <footer>© 2026 VYN. Vibes You Need. Editorial by Design.</footer>
+  <div class="demo-badge">DEMO MODE • UI ONLY</div>
+
+  <!-- AUTH MODAL -->
+  <div class="modal" id="authModal">
+    <div class="modal-box">
+      <button style="float:right;" onclick="closeModal()">×</button>
+      <h3 style="margin-bottom: var(--space);" data-i18n="login">Access VYN</h3>
+      <div class="role-select">
+        <label><input type="radio" name="role" value="reader" checked> Reader</label>
+        <label><input type="radio" name="role" value="editor"> Editor</label>
+      </div>
+      <form onsubmit="handleLogin(event)">
+        <div class="form-group"><label>Email</label><input type="email" required></div>
+        <div class="form-group"><label>Password</label><input type="password" required></div>
+        <button type="submit" class="btn" style="width:100%;" data-i18n="enter">Enter</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // STATE
+    const state = {
+      user: null,
+      lang: 'en',
+      posts: [
+        { id: 1, title: 'Canvas & Clay', cat: 'Art', img: 'https://placehold.co/1200x675/FAFAF7/111?text=FEATURED', copy: 'Raw textures meet modern form.', likes: 24, comments: [], follows: 12 },
+        { id: 2, title: 'Roots & Resonance', cat: 'Music', img: 'https://placehold.co/800x600/FAFAF7/111?text=MUSIC', copy: 'A multi-artist drop under VYN.', likes: 41, comments: [], follows: 8 },
+        { id: 3, title: 'Earth Tones', cat: 'Fashion', img: 'https://placehold.co/800x600/FAFAF7/111?text=FASHION', copy: 'Streetwear meets heritage textiles.', likes: 18, comments: [], follows: 5 },
+        { id: 4, title: 'Quiet Spaces', cat: 'Lifestyle', img: 'https://placehold.co/800x600/FAFAF7/111?text=LIFESTYLE', copy: 'Curated living, mindful design.', likes: 12, comments: [], follows: 3 }
+      ]
+    };
+
+    // I18N
+    const dict = {
+      en: { sub: "An editorial space for art, sound, fashion, and lifestyle. Curated by VYN. Engaged by the movement.", issue: "ISSUE 01 — EST. 2026", latest: "The Latest", events: "Gatherings", shop: "Objects & Tickets", admin: "Editorial Desk", login: "Access VYN", enter: "Enter", "f-title": "Title", "f-cat": "Category", "f-img": "Image URL", "f-copy": "Copy", "f-btn": "Publish to Journal", "ev1-date": "JUL 12 • LILONGWE", "ev1-title": "Sound & Canvas Live", "ev1-price": "Free / VIP MWK 5,000", "ev2-date": "AUG 03 • BLANTYRE", "ev2-title": "Afro-Modern Showcase", "ev2-price": "MWK 3,500", "merch1-cat": "APPAREL", "merch1-title": "Heritage Tee", "merch2-cat": "MUSIC", "merch2-title": "Roots & Resonance" },
+      ny: { sub: "Malo olembedwa a zojambula, nyimbo, mafashoni, ndi moyo. Opangidwa ndi VYN. Olowa mu kampani.", issue: "CHAP 01 — EST. 2026", latest: "Zatsopano", events: "Misonkhano", shop: "Zinthu ndi Matikiti", admin: "Desiki ya Editor", login: "Lowani ku VYN", enter: "Lowani", "f-title": "Mutu", "f-cat": "Gulu", "f-img": "URL ya Chithunzi", "f-copy": "Kufotokozera", "f-btn": "Sindikiza ku Journal", "ev1-date": "JUL 12 • LILONGWE", "ev1-title": "Sound & Canvas Live", "ev1-price": "Free / VIP MWK 5,000", "ev2-date": "AUG 03 • BLANTYRE", "ev2-title": "Afro-Modern Showcase", "ev2-price": "MWK 3,500", "merch1-cat": "ZOVALA", "merch1-title": "Heritage Tee", "merch2-cat": "NYIMBO", "merch2-title": "Roots & Resonance" }
+    };
+
+    // ROUTER
+    function nav(v) {
+      if(v === 'admin' && state.user?.role !== 'editor') return alert('Editor access required.');
+      document.querySelectorAll('.view').forEach(e => e.classList.remove('active'));
+      document.getElementById(v).classList.add('active');
+      document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+      document.querySelector(`.nav-links a[data-v="${v}"]`)?.classList.add('active');
+      window.scrollTo({ top: 0 }); closeMenu(); render();
+    }
+    function toggleMenu() { document.getElementById('nav').classList.toggle('open'); }
+    function closeMenu() { document.getElementById('nav').classList.remove('open'); }
+
+    // AUTH
+    function openModal() { document.getElementById('authModal').classList.add('active'); }
+    function closeModal() { document.getElementById('authModal').classList.remove('active'); }
+    function handleLogin(e) {
+      e.preventDefault();
+      state.user = { role: document.querySelector('input[name="role"]:checked').value };
+      closeModal();
+      document.getElementById('authBtn').textContent = state.user.role === 'editor' ? 'Desk' : 'Logout';
+      document.getElementById('authBtn').onclick = state.user.role === 'editor' ? () => nav('admin') : logout;
+      document.getElementById('deskLink').style.display = state.user.role === 'editor' ? 'block' : 'none';
+      nav(state.user.role === 'editor' ? 'admin' : 'journal');
+    }
+    function logout() { state.user = null; document.getElementById('authBtn').textContent = 'Login'; document.getElementById('authBtn').onclick = openModal; document.getElementById('deskLink').style.display = 'none'; nav('journal'); }
+
+    // RENDER
+    function render() {
+      const feat = document.getElementById('feat'), side = document.getElementById('side'), feed = document.getElementById('feed'), alist = document.getElementById('aList');
+      feat.innerHTML = ''; side.innerHTML = ''; feed.innerHTML = ''; if(alist) alist.innerHTML = '';
+
+      if(state.posts.length === 0) return feed.innerHTML = '<p class="meta">No entries yet.</p>';
+
+      const p = state.posts[0];
+      feat.innerHTML = `<article class="post" style="border:none; margin-bottom:var(--space-xl);"><img src="${p.img}"><div class="meta">${p.cat}</div><h3 style="font-size:clamp(1.5rem, 2.5vw + 0.5rem, 2.2rem);">${p.title}</h3><p class="meta" style="text-transform:none; margin-top:4px;">${p.copy}</p>${actions(p.id)}</article>`;
+
+      state.posts.slice(1,3).forEach(p => side.innerHTML += `<article class="post"><img src="${p.img}"><div class="meta">${p.cat}</div><h3>${p.title}</h3><p class="meta" style="text-transform:none;">${p.copy}</p>${actions(p.id)}</article>`);
+
+      state.posts.slice(3).forEach(p => feed.innerHTML += `<article class="post"><img src="${p.img}"><div class="meta">${p.cat}</div><h3>${p.title}</h3><p class="meta" style="text-transform:none;">${p.copy}</p>${actions(p.id)}</article>`);
+
+      if(state.user?.role === 'editor') {
+        state.posts.forEach(p => alist.innerHTML += `<div class="p-item"><div><strong>${p.title}</strong> <span class="meta" style="display:inline; margin-left:6px;">${p.cat}</span></div><button class="btn btn-sm" onclick="del(${p.id})">Remove</button></div>`);
+      }
+    }
+
+    function actions(id) {
+      const p = state.posts.find(x=>x.id===id);
+      const cList = p.comments.map(c => `<div class="c-item"><strong>${c.user}:</strong> ${c.text}</div>`).join('');
+      return `
+        <div class="actions">
+          <button class="act-btn ${p.liked?'liked':''}" onclick="like(${id})">♥ ${p.likes}</button>
+          <button class="act-btn" onclick="follow(${id})">＋ ${p.follows}</button>
+        </div>
+        <div class="comment-box">
+          <div class="c-input-row"><input class="c-input" id="in-${id}" placeholder="Add a note..."><button class="btn btn-sm" onclick="cmt(${id})">Post</button></div>
+          <div class="c-list" id="cl-${id}">${cList}</div>
+        </div>`;
+    }
+
+    // INTERACTIONS
+    function like(id) { const p=state.posts.find(x=>x.id===id); if(p){ p.liked=!p.liked; p.likes += p.liked?1:-1; render(); } }
+    function follow(id) { const p=state.posts.find(x=>x.id===id); if(p) { p.follows++; render(); } }
+    function cmt(id) { const inEl=document.getElementById(`in-${id}`); if(!inEl.value.trim()) return; const p=state.posts.find(x=>x.id===id); p.comments.push({user: state.user?.role==='editor'?'Editor':'Reader', text:inEl.value}); render(); }
+    function del(id) { state.posts = state.posts.filter(x=>x.id!==id); render(); }
+    function publish(e) { e.preventDefault(); state.posts.unshift({ id: Date.now(), title: document.getElementById('pT').value, cat: document.getElementById('pC').value, img: document.getElementById('pI').value || 'https://placehold.co/800x600/FAFAF7/111?text=NEW', copy: document.getElementById('pK').value, likes: 0, comments: [], follows: 0 }); e.target.reset(); render(); switchPanel('arch'); }
+    function switchPanel(t) { document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active')); document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active')); event.target.classList.add('active'); document.getElementById(t).classList.add('active'); }
+    function toggleLang() { state.lang = state.lang === 'en' ? 'ny' : 'en'; document.querySelectorAll('[data-i18n]').forEach(el => { const key = el.getAttribute('data-i18n'); if(dict[state.lang][key]) el.textContent = dict[state.lang][key]; }); }
+
+    // INIT
+    render();
+  </script>
+</body>
+</html>

@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VYN — To Be Thrilled</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --void: #0b0b12;
+            --void-2: #131320;
+            --bone: #eeece6;
+            --bone-dim: #a9a7ad;
+            --volt: #ff3b5c;
+            --dusk: #7a6bff;
+            --steel: #57566a;
+            --signal: #f5e663;
+            --line: rgba(238, 236, 230, 0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--void);
+            color: var(--bone);
+            font-family: 'Manrope', sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .display {
+            font-family: 'Anton', sans-serif;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.01em;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .wrap {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        /* focus visibility */
+        a:focus-visible,
+        button:focus-visible {
+            outline: 2px solid var(--volt);
+            outline-offset: 4px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.001ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.001ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        /* ---------- NAV ---------- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: var(--void);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .util-bar {
+            border-bottom: 1px solid var(--line);
+            background: var(--void-2);
+        }
+
+        .util-bar .wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 28px;
+            height: 38px;
+            font-size: 12.5px;
+            font-weight: 600;
+            color: var(--bone-dim);
+        }
+
+        .util-tagline {
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--bone-dim);
+        }
+
+        .util-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .util-bar a {
+            opacity: 0.9;
+            transition: opacity 0.2s, color 0.2s;
+        }
+
+        .util-bar a:hover {
+            opacity: 1;
+            color: var(--volt);
+        }
+
+        .util-bar .divider {
+            width: 1px;
+            height: 12px;
+            background: var(--line);
+        }
+
+        nav.wrap {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 78px;
+            gap: 24px;
+        }
+
+        .logo {
+            font-family: 'Anton', sans-serif;
+            font-size: 24px;
+            letter-spacing: 0.04em;
+            flex: 0 0 auto;
+        }
+
+        .logo span {
+            color: var(--volt);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.01em;
+            flex: 1 1 auto;
+            justify-content: center;
+        }
+
+        .nav-links a {
+            position: relative;
+            padding-bottom: 4px;
+            opacity: 0.85;
+            transition: opacity 0.2s;
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 2px;
+            background: var(--volt);
+            transition: width 0.25s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-tools {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex: 0 0 auto;
+        }
+
+        .nav-search {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--void-2);
+            border: 1px solid var(--line);
+            border-radius: 100px;
+            padding: 10px 18px;
+            font-size: 13.5px;
+            color: var(--steel);
+            min-width: 190px;
+        }
+
+        .nav-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.9;
+            transition: opacity 0.2s, transform 0.2s;
+            cursor: pointer;
+        }
+
+        .nav-icon:hover {
+            opacity: 1;
+            transform: translateY(-1px);
+        }
+
+        @media (max-width:900px) {
+
+            .nav-links,
+            .nav-search {
+                display: none;
+            }
+
+            .util-bar {
+                display: none;
+            }
+        }
+
+        /* ---------- HERO ---------- */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-top: 150px;
+            overflow: hidden;
+        }
+
+        .hero-glow {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background:
+                radial-gradient(60% 50% at 15% 15%, rgba(122, 107, 255, 0.28), transparent 60%),
+                radial-gradient(50% 45% at 90% 30%, rgba(255, 59, 92, 0.22), transparent 60%);
+        }
+
+        .hero .wrap {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--bone-dim);
+            margin-bottom: 28px;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--volt);
+        }
+
+        .hero h1 {
+            font-size: clamp(56px, 11vw, 168px);
+            line-height: 0.86;
+            letter-spacing: -0.01em;
+        }
+
+        .hero h1 .line2 {
+            color: transparent;
+            -webkit-text-stroke: 1.5px var(--bone);
+            display: block;
+        }
+
+        .hero-sub {
+            max-width: 520px;
+            margin-top: 32px;
+            font-size: 18px;
+            line-height: 1.6;
+            color: var(--bone-dim);
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 18px;
+            margin-top: 44px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary,
+        .btn-ghost {
+            padding: 17px 34px;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+        }
+
+        .btn-primary {
+            background: var(--volt);
+            color: var(--void);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            background: #ff5578;
+        }
+
+        .btn-ghost {
+            border: 1.5px solid var(--line);
+            color: var(--bone);
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--bone);
+            transform: translateY(-2px);
+        }
+
+        .btn-pill {
+            background: var(--bone);
+            color: var(--void);
+            border: none;
+            padding: 16px 34px;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 0.03em;
+            cursor: pointer;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+
+        .btn-pill:hover {
+            transform: translateY(-2px);
+            background: #fff;
+        }
+
+        .btn-pill.outline {
+            background: transparent;
+            border: 1.5px solid var(--bone);
+            color: var(--bone);
+        }
+
+        .btn-pill.outline:hover {
+            background: rgba(238, 236, 230, 0.08);
+        }
+
+
+        /* ---------- MARQUEE ---------- */
+
+
+        /* ---------- MANIFESTO ---------- */
+        .manifesto {
+            padding: 160px 0 120px;
+        }
+
+        .manifesto-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            max-width: 760px;
+        }
+
+        .manifesto-label {
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--volt);
+        }
+
+        .manifesto-text {
+            font-size: clamp(28px, 3.4vw, 44px);
+            line-height: 1.25;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+
+        .manifesto-text em {
+            color: var(--bone-dim);
+            font-style: normal;
+        }
+
+
+        /* ---------- PILLARS ---------- */
+        .pillars {
+            padding: 60px 0 160px;
+        }
+
+        .section-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 56px;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .section-title {
+            font-size: clamp(36px, 5vw, 64px);
+        }
+
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: var(--line);
+            border: 1px solid var(--line);
+        }
+
+        .pillar-card {
+            background: var(--void);
+            padding: 44px 30px;
+            min-height: 340px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: background 0.35s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pillar-card:hover {
+            background: var(--void-2);
+        }
+
+        .pillar-num {
+            font-size: 13px;
+            color: var(--steel);
+            font-weight: 700;
+        }
+
+        .pillar-name {
+            font-family: 'Anton', sans-serif;
+            font-size: 30px;
+            text-transform: uppercase;
+            margin-top: 70px;
+        }
+
+        .pillar-desc {
+            font-size: 14.5px;
+            color: var(--bone-dim);
+            line-height: 1.6;
+            margin-top: 14px;
+        }
+
+        .pillar-glyph {
+            position: absolute;
+            right: -10px;
+            bottom: -30px;
+            font-size: 130px;
+            font-family: 'Anton', sans-serif;
+            opacity: 0.05;
+            line-height: 1;
+            pointer-events: none;
+        }
+
+        @media (max-width:1000px) {
+            .pillars-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width:560px) {
+            .pillars-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ---------- DROPS ---------- */
+        .drops {
+            padding: 60px 0 160px;
+        }
+
+        .drops-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+
+        .drop-card {
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            padding: 26px;
+            background: var(--void-2);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .drop-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--volt);
+        }
+
+        .drop-visual {
+            height: 220px;
+            border-radius: 14px;
+            margin-bottom: 22px;
+            background: linear-gradient(135deg, var(--dusk), var(--volt));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .drop-visual::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(115deg, rgba(255, 255, 255, 0.12) 0 2px, transparent 2px 26px);
+        }
+
+        .drop-tag {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            background: var(--void);
+            color: var(--bone);
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 6px 12px;
+            border-radius: 100px;
+        }
+
+        .drop-title {
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+
+        .drop-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 16px;
+            font-size: 14px;
+            color: var(--bone-dim);
+        }
+
+        .drop-price {
+            color: var(--bone);
+            font-weight: 700;
+        }
+
+        @media (max-width:900px) {
+            .drops-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width:600px) {
+            .drops-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ---------- ARTISTS STRIP ---------- */
+        .artists {
+            padding: 60px 0 160px;
+        }
+
+        .artists-scroll {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding-bottom: 16px;
+            scrollbar-width: none;
+        }
+
+        .artists-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .artist-card {
+            flex: 0 0 260px;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            overflow: hidden;
+            background: var(--void-2);
+        }
+
+        .artist-photo {
+            height: 300px;
+            background:
+                radial-gradient(circle at 30% 20%, rgba(245, 230, 99, 0.4), transparent 55%),
+                linear-gradient(200deg, var(--dusk), var(--void-2) 70%);
+        }
+
+        .artist-info {
+            padding: 18px 20px;
+        }
+
+        .artist-name {
+            font-weight: 800;
+            font-size: 16px;
+        }
+
+        .artist-role {
+            font-size: 13px;
+            color: var(--bone-dim);
+            margin-top: 4px;
+        }
+
+        /* ---------- CTA / JOIN ---------- */
+        .join {
+            padding: 140px 0;
+            text-align: center;
+            position: relative;
+            background: var(--void-2);
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .join h2 {
+            font-size: clamp(40px, 7vw, 96px);
+            line-height: 0.95;
+        }
+
+        .join p {
+            color: var(--bone-dim);
+            max-width: 480px;
+            margin: 24px auto 0;
+            font-size: 17px;
+            line-height: 1.6;
+        }
+
+        .join-form {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 44px;
+            flex-wrap: wrap;
+        }
+
+        .join-form input {
+            background: transparent;
+            border: 1.5px solid var(--line);
+            color: var(--bone);
+            padding: 16px 22px;
+            border-radius: 100px;
+            font-size: 15px;
+            min-width: 280px;
+            font-family: 'Manrope', sans-serif;
+        }
+
+        .join-form input:focus {
+            outline: none;
+            border-color: var(--volt);
+        }
+
+        .join-form input::placeholder {
+            color: var(--steel);
+        }
+
+        /* ---------- FOOTER ---------- */
+        footer {
+            padding: 70px 0 40px;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 1.6fr repeat(3, 1fr);
+            gap: 40px;
+            padding-bottom: 60px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .footer-logo {
+            font-family: 'Anton', sans-serif;
+            font-size: 30px;
+        }
+
+        .footer-tag {
+            color: var(--bone-dim);
+            margin-top: 14px;
+            font-size: 14px;
+            max-width: 260px;
+            line-height: 1.6;
+        }
+
+        .footer-col h4 {
+            font-size: 12px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--steel);
+            margin-bottom: 18px;
+        }
+
+        .footer-col a {
+            display: block;
+            font-size: 14.5px;
+            color: var(--bone-dim);
+            margin-bottom: 12px;
+            transition: color 0.2s;
+        }
+
+        .footer-col a:hover {
+            color: var(--bone);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 28px;
+            font-size: 13px;
+            color: var(--steel);
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        @media (max-width:800px) {
+            .footer-top {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* reveal on scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="util-bar">
+            <div class="wrap">
+                <div class="util-tagline">Vibes You Need</div>
+                <div class="util-links">
+                    <a href="#">Find a Studio</a>
+                    <span class="divider"></span>
+                    <a href="#">Help</a>
+                    <span class="divider"></span>
+                    <a href="#join">Join Us</a>
+                    <span class="divider"></span>
+                    <a href="#">Sign In</a>
+                </div>
+            </div>
+        </div>
+        <nav class="wrap">
+            <div class="logo">VYN<span>.</span></div>
+            <div class="nav-links">
+                <a href="#">New</a>
+                <a href="#pillars">Art</a>
+                <a href="#pillars">Music</a>
+                <a href="#drops">Fashion</a>
+                <a href="#artists">Artists</a>
+                <a href="#join">Studio</a>
+            </div>
+            <div class="nav-tools">
+                <div class="nav-search">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="7" />
+                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                    </svg>
+                    Search
+                </div>
+                <div class="nav-icon" aria-label="Wishlist">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.8">
+                        <path
+                            d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z" />
+                    </svg>
+                </div>
+                <div class="nav-icon" aria-label="Bag">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.8">
+                        <path d="M6.5 8h11l0.8 12.2a1.5 1.5 0 0 1-1.5 1.6H7.2a1.5 1.5 0 0 1-1.5-1.6L6.5 8z" />
+                        <path d="M9 8V6.5a3 3 0 0 1 6 0V8" />
+                    </svg>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-glow"></div>
+        <div class="wrap" style="text-align:center;">
+            <div class="hero-eyebrow" style="justify-content:center; width:100%;"><span class="pulse-dot"></span>VYN
+                Presents</div>
+            <h1 class="display">VIBES<span class="line2">YOU NEED</span></h1>
+            <p class="hero-sub" style="margin-left:auto; margin-right:auto; text-align:center;">The best don't wait for
+                the moment to feel right — they bring the energy that makes it right.</p>
+            <div class="hero-actions" style="justify-content:center;">
+                <button class="btn-pill"
+                    onclick="document.querySelector('#drops').scrollIntoView({behavior:'smooth'})">Shop</button>
+                <button class="btn-pill outline"
+                    onclick="document.querySelector('#pillars').scrollIntoView({behavior:'smooth'})">Explore</button>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section class="manifesto wrap reveal">
+        <div class="manifesto-grid">
+            <div class="manifesto-text">
+                We don't design for a mood board. We design for the drop of the stomach before you go on —
+                <em>the first bar of a new track, the last stitch on a finished piece, the walk-out before the show
+                    starts.</em>
+                VYN exists to hand artists the tools, the platform, and the people to chase that feeling on purpose.
+            </div>
+        </div>
+    </section>
+
+    <section class="pillars wrap" id="pillars">
+        <div class="section-head reveal">
+            <div>
+                <div class="section-title display">Crafts</div>
+            </div>
+        </div>
+        <div class="pillars-grid reveal">
+            <div class="pillar-card">
+                <div class="pillar-num">A</div>
+                <div>
+                    <div class="pillar-name">Art</div>
+                    <div class="pillar-desc">Studio space, materials, and mentorship for visual artists turning raw
+                        ideas into shown work.</div>
+                </div>
+                <div class="pillar-glyph">A</div>
+            </div>
+            <div class="pillar-card">
+                <div class="pillar-num">M</div>
+                <div>
+                    <div class="pillar-name">Music</div>
+                    <div class="pillar-desc">Studio time, collabs, and release support for artists building a sound
+                        worth chasing.</div>
+                </div>
+                <div class="pillar-glyph">M</div>
+            </div>
+            <div class="pillar-card">
+                <div class="pillar-num">F</div>
+                <div>
+                    <div class="pillar-name">Fashion</div>
+                    <div class="pillar-desc">Apparel and capsules shaped by the artists in our community, not a
+                        boardroom trend report.</div>
+                </div>
+                <div class="pillar-glyph">F</div>
+            </div>
+            <div class="pillar-card">
+                <div class="pillar-num">L</div>
+                <div>
+                    <div class="pillar-name">Lifestyle</div>
+                    <div class="pillar-desc">Events, drops, and a community built around one rule: show up for the
+                        thrill of it.</div>
+                </div>
+                <div class="pillar-glyph">L</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="drops wrap" id="drops">
+        <div class="section-head reveal">
+            <div>
+                <div class="section-title display">Wear the thrill</div>
+            </div>
+            <a href="#" class="btn-ghost">View full collection →</a>
+        </div>
+        <div class="drops-grid reveal">
+            <div class="drop-card">
+                <div class="drop-visual"><span class="drop-tag">New</span></div>
+                <div class="drop-title">Pulse Bomber</div>
+                <div class="pillar-desc">Reflective panels, tour-jacket cut, built for the walk from studio to stage.
+                </div>
+                <div class="drop-meta"><span>Fashion Capsule</span><span class="drop-price">$185</span></div>
+            </div>
+            <div class="drop-card">
+                <div class="drop-visual"><span class="drop-tag">Limited</span></div>
+                <div class="drop-title">Frequency Tee</div>
+                <div class="pillar-desc">Heavyweight cotton, waveform graphic pulled from an unreleased VYN artist
+                    track.</div>
+                <div class="drop-meta"><span>Music x Fashion</span><span class="drop-price">$58</span></div>
+            </div>
+            <div class="drop-card">
+                <div class="drop-visual"><span class="drop-tag">Drop 004</span></div>
+                <div class="drop-title">Afterglow Cap</div>
+                <div class="pillar-desc">Curved brim, embroidered eyebrow mark, made for load-in and load-out alike.
+                </div>
+                <div class="drop-meta"><span>Lifestyle</span><span class="drop-price">$42</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="artists wrap" id="artists">
+        <div class="section-head reveal">
+            <div>
+                <div class="section-title display">Discover Artists</div>
+            </div>
+        </div>
+        <div class="artists-scroll reveal">
+            <div class="artist-card">
+                <div class="artist-photo"></div>
+                <div class="artist-info">
+                    <div class="artist-name">Nia Okoro</div>
+                    <div class="artist-role">Painter &middot; Studio Class of '25</div>
+                </div>
+            </div>
+            <div class="artist-card">
+                <div class="artist-photo"></div>
+                <div class="artist-info">
+                    <div class="artist-name">Marlo Reign</div>
+                    <div class="artist-role">Producer &middot; VYN Sound</div>
+                </div>
+            </div>
+            <div class="artist-card">
+                <div class="artist-photo"></div>
+                <div class="artist-info">
+                    <div class="artist-name">Delphine Cruz</div>
+                    <div class="artist-role">Designer &middot; Fashion Capsule 03</div>
+                </div>
+            </div>
+            <div class="artist-card">
+                <div class="artist-photo"></div>
+                <div class="artist-info">
+                    <div class="artist-name">Theo Vance</div>
+                    <div class="artist-role">Photographer &middot; Lifestyle</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="join reveal" id="join">
+        <div class="wrap">
+            <div class="manifesto-label">Join In</div>
+            <h2 class="display">To be thrilled</h2>
+            <p>Early access to drops, studio calls, and shows — straight from the artists building VYN, no algorithm in
+                between.</p>
+            <form class="join-form"
+                onsubmit="event.preventDefault(); this.querySelector('button').textContent='You\'re in →';">
+                <input type="email" placeholder="you@email.com" required>
+                <button type="submit" class="btn-primary" style="border:none; cursor:pointer;">Notify me →</button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="wrap">
+        <div class="footer-top">
+            <div>
+                <div class="footer-logo">VYN.</div>
+                <p class="footer-tag">A creative brand blending art, music, fashion, and lifestyle — built to be
+                    thrilled, on purpose.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Explore</h4>
+                <a href="#pillars">Crafts</a>
+                <a href="#drops">Drops</a>
+                <a href="#artists">Artists</a>
+            </div>
+            <div class="footer-col">
+                <h4>Studio</h4>
+                <a href="#join">Apply</a>
+                <a href="#">Mentorship</a>
+                <a href="#">Collabs</a>
+            </div>
+            <div class="footer-col">
+                <h4>Follow</h4>
+                <a href="#">Instagram</a>
+                <a href="#">TikTok</a>
+                <a href="#">Spotify</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 VYN. To be thrilled.</span>
+            <span>Made for artists, by artists.</span>
+        </div>
+    </footer>
+
+    <script>
+        const revealEls = document.querySelectorAll('.reveal');
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+        }, { threshold: 0.15 });
+        revealEls.forEach(el => io.observe(el));
+    </script>
+
+</body>
+
+</html>
